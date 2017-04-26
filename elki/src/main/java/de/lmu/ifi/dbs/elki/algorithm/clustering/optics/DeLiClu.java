@@ -45,11 +45,9 @@ import de.lmu.ifi.dbs.elki.index.tree.spatial.rstarvariants.deliclu.*;
 import de.lmu.ifi.dbs.elki.logging.Logging;
 import de.lmu.ifi.dbs.elki.logging.progress.FiniteProgress;
 import de.lmu.ifi.dbs.elki.math.MathUtil;
-import de.lmu.ifi.dbs.elki.result.Metadata;
 import de.lmu.ifi.dbs.elki.utilities.Alias;
 import de.lmu.ifi.dbs.elki.utilities.ClassGenericsUtil;
 import de.lmu.ifi.dbs.elki.utilities.datastructures.heap.UpdatableHeap;
-import de.lmu.ifi.dbs.elki.utilities.datastructures.iterator.It;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Description;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Reference;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Title;
@@ -60,13 +58,11 @@ import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameterization.Parameteriz
 import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.IntParameter;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
-import gnu.trove.set.TIntSet;
-
 /**
  * DeliClu: Density-Based Hierarchical Clustering
  * <p>
  * A hierarchical algorithm to find density-connected sets in a database,
- * closely related to OPTICS but exploiting the structure of a R-tree for
+ * closely related to OPTICS but exploiting the Ostructure of a R-tree for
  * acceleration.
  * <p>
  * Reference:
