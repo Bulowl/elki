@@ -24,7 +24,6 @@ import javax.swing.JFrame;
 
 import de.lmu.ifi.dbs.elki.gui.GUIUtil;
 import de.lmu.ifi.dbs.elki.logging.Logging;
-import de.lmu.ifi.dbs.elki.result.Result;
 import de.lmu.ifi.dbs.elki.result.ResultHandler;
 import de.lmu.ifi.dbs.elki.result.ResultUtil;
 import de.lmu.ifi.dbs.elki.utilities.Alias;
@@ -96,7 +95,7 @@ public class AutomaticVisualization implements ResultHandler {
   }
 
   @Override
-  public void processNewResult(final Result result) {
+  public void processNewResult(final Object result) {
     if(window == null) {
       if(title == null) {
         title = VisualizerParameterizer.getTitle(ResultUtil.findDatabase(result), result);

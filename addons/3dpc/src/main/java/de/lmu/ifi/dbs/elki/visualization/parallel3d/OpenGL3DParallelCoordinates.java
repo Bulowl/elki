@@ -123,7 +123,8 @@ public class OpenGL3DParallelCoordinates<O extends NumberVector> implements Resu
   }
 
   @Override
-  public void processNewResult(Result newResult) {
+  public void processNewResult(Object newResult) {
+    boolean nonefound = true;
     List<Relation<?>> rels = ResultUtil.getRelations(newResult);
     for(Relation<?> rel : rels) {
       if(!TypeUtil.NUMBER_VECTOR_FIELD.isAssignableFromType(rel.getDataTypeInformation())) {

@@ -21,17 +21,11 @@
 package de.lmu.ifi.dbs.elki.result;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.batik.util.SVGConstants;
 
 import de.lmu.ifi.dbs.elki.logging.Logging;
-import de.lmu.ifi.dbs.elki.result.Result;
-import de.lmu.ifi.dbs.elki.result.ResultHandler;
 import de.lmu.ifi.dbs.elki.utilities.Alias;
 import de.lmu.ifi.dbs.elki.utilities.datastructures.hierarchy.Hierarchy;
 import de.lmu.ifi.dbs.elki.utilities.datastructures.iterator.It;
@@ -100,7 +94,7 @@ public class ExportVisualizations implements ResultHandler {
   /**
    * Base result
    */
-  Result baseResult = null;
+  Object baseResult = null;
 
   /**
    * Visualizer context
@@ -153,7 +147,7 @@ public class ExportVisualizations implements ResultHandler {
   }
 
   @Override
-  public void processNewResult(Result newResult) {
+  public void processNewResult(Object newResult) {
     if(output.isFile()) {
       throw new AbortException("Output folder cannot be an existing file.");
     }
