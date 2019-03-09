@@ -390,6 +390,52 @@ public abstract class AbstractKMeans<V extends NumberVector, M extends Model> ex
     }
 
     /**
+     * Compute a distance (and count the distance computations).
+     *
+     * @param x First object
+     * @param y Second object
+     * @return Distance
+     */
+    protected double distance(NumberVector x, double[] y) {
+      ++diststat;
+      if(df.getClass() == SquaredEuclideanDistanceFunction.class) {
+        double v = 0;
+        if(y.length != x.getDimensionality()) {
+          throw new IllegalArgumentException("Objects do not have the same dimensionality.");
+        }
+        for(int i = 0; i < y.length; i++) {
+          double d = x.doubleValue(i) - y[i];
+          v += d * d;
+        }
+        return v;
+      }
+      return df.distance(x, DoubleVector.wrap(y));
+    }
+
+    /**
+     * Compute a distance (and count the distance computations).
+     *
+     * @param x First object
+     * @param y Second object
+     * @return Distance
+     */
+    protected double distance(double[] x, double[] y) {
+      ++diststat;
+      if(df.getClass() == SquaredEuclideanDistanceFunction.class) {
+        double v = 0;
+        if(y.length != x.length) {
+          throw new IllegalArgumentException("Objects do not have the same dimensionality.");
+        }
+        for(int i = 0; i < x.length; i++) {
+          double d = x[i] - y[i];
+          v += d * d;
+        }
+        return v;
+      }
+      return df.distance(DoubleVector.wrap(x), DoubleVector.wrap(y));
+    }
+
+    /**
      * Run the clustering.
      *
      * @param maxiter Maximum number of iterations
@@ -467,7 +513,7 @@ public abstract class AbstractKMeans<V extends NumberVector, M extends Model> ex
         NumberVector fv = relation.get(iditer);
         int minIndex = 0;
         for(int i = 0; i < k; i++) {
-          double dist = distance(fv, DoubleVector.wrap(means[i]));
+          double dist = distance(fv, means[i]);
           if(dist < mindist) {
             minIndex = i;
             mindist = dist;
@@ -496,9 +542,9 @@ public abstract class AbstractKMeans<V extends NumberVector, M extends Model> ex
       assert (sep.length == k);
       Arrays.fill(sep, Double.POSITIVE_INFINITY);
       for(int i = 1; i < k; i++) {
-        DoubleVector mi = DoubleVector.wrap(means[i]);
+        double[] mi = means[i];
         for(int j = 0; j < i; j++) {
-          double d = distance(mi, DoubleVector.wrap(means[j]));
+          double d = distance(mi, means[j]);
           d = .5 * (issquared ? FastMath.sqrt(d) : d);
           cdist[i][j] = cdist[j][i] = d;
           sep[i] = (d < sep[i]) ? d : sep[i];
@@ -523,7 +569,7 @@ public abstract class AbstractKMeans<V extends NumberVector, M extends Model> ex
       boolean issquared = df.isSquared();
       double max = 0.;
       for(int i = 0; i < means.length; i++) {
-        double d = distance(DoubleVector.wrap(means[i]), DoubleVector.wrap(newmeans[i]));
+        double d = distance(means[i], newmeans[i]);
         dists[i] = d = issquared ? FastMath.sqrt(d) : d;
         max = (d > max) ? d : max;
       }
@@ -565,9 +611,9 @@ public abstract class AbstractKMeans<V extends NumberVector, M extends Model> ex
         }
         double varsum = 0;
         if(varstat) {
-          DoubleVector mvec = DoubleVector.wrap(means[i]);
+          double[] mean = means[i];
           for(DBIDIter it = ids.iter(); it.valid(); it.advance()) {
-            varsum += distance(mvec, relation.get(it));
+            varsum += distance(relation.get(it), mean);
           }
           totalvariance += varsum;
         }
