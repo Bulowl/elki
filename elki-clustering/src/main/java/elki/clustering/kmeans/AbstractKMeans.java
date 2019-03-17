@@ -622,7 +622,7 @@ public abstract class AbstractKMeans<V extends NumberVector, M extends Model> ex
           }
           totalvariance += varsum;
         }
-        result.addToplevelCluster(new Cluster<>(ids, new KMeansModel(means[i], varsum)));
+        result.addToplevelCluster(new Cluster<>(ids, new KMeansModel(means[i], varstat ? varsum : Double.NaN)));
       }
       Logging log = getLogger();
       if(varstat && log.isStatistics()) {
