@@ -7,8 +7,8 @@
 ## Clipping: [0.00000000 0.00000000] - [1.00000000 1.00000000]
 ## Density correction factor: 1.0
 ## Generators:
-##   Normal Distribution (mean=0.5, stddev=0.2)
-##   Normal Distribution (mean=0.5, stddev=0.2)
+##   Normal Distribution (mean=0.5 stddev=0.2)
+##   Normal Distribution (mean=0.5 stddev=0.2)
 ## Discards: 203 Retries left: 986
 ## Density correction factor estimation: 1.1789181692094313
 ########################################################
